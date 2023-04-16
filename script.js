@@ -1,4 +1,21 @@
 const possibleValues = ['rock', 'paper', 'scissors'];
+const compareObject = {
+    rock: {
+        rock: 'tie',
+        paper: 'lost',
+        scissors: 'won'
+    },
+    paper: {
+        paper: 'tie',
+        rock: 'won',
+        scissors: 'lost'
+    },
+    scissors: {
+        scissors: 'tie',
+        rock: 'lost',
+        paper: 'won'
+    }
+};
 
 function getComputerChoice() {
     const randomIndex = Math.floor(Math.random() * 3);
@@ -6,45 +23,25 @@ function getComputerChoice() {
 }
 
 function playRound(playerSelection, computerSelection) {
-    const result = { code: null, text: null };
-    const isWin = {
-        rock: {
-            paper: false,
-            scissors: true
-        },
-        paper: {
-            rock: true,
-            scissors: false
-        },
-        scissors: {
-            rock: false,
-            paper: true
-        }
-    };
-
     const playerSelectionClean =  playerSelection.toLowerCase().trim();
 
     if(!possibleValues.includes(playerSelectionClean)) {
         throw new Error(`You should select ${possibleValues.join(' or ')}`);
     }
 
-    if (playerSelectionClean === computerSelection) {
-        result.code = 'tie';
-        result.text = 'Tie! You both picked ' + playerSelectionClean;
-        return result;
+    const resultText = {
+        won: `You Won! ${playerSelectionClean} beats ${computerSelection}`,
+        lost: `You Lost! ${computerSelection} beats ${playerSelectionClean}`,
+        tie: 'Tie! You both picked ' + playerSelectionClean
+
     }
 
-    const won = isWin[playerSelectionClean][computerSelection];
+    const code = compareObject[playerSelectionClean][computerSelection];
 
-    if (won) {
-        result.code = 'won';
-        result.text = `You Won! ${playerSelectionClean} beats ${computerSelection}`;
-    } else {
-        result.code = 'lost';
-        result.text = `You Lost! ${computerSelection} beats ${playerSelectionClean}`;
+    return {
+        code,
+        text: resultText[code]
     }
-
-    return result;
 }
 
 function game(){
