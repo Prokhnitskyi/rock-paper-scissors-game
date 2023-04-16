@@ -6,6 +6,7 @@ function getComputerChoice() {
 }
 
 function playRound(playerSelection, computerSelection) {
+    const result = { code: null, text: null };
     const isWin = {
         rock: {
             paper: false,
@@ -28,14 +29,20 @@ function playRound(playerSelection, computerSelection) {
     }
 
     if (playerSelectionClean === computerSelection) {
-        return 'Tie! You both picked ' + playerSelectionClean;
+        result.code = 'tie';
+        result.text = 'Tie! You both picked ' + playerSelectionClean;
+        return result;
     }
 
     const won = isWin[playerSelectionClean][computerSelection];
 
     if (won) {
-        return `You Won! ${playerSelectionClean} beats ${computerSelection}`;
+        result.code = 'won';
+        result.text = `You Won! ${playerSelectionClean} beats ${computerSelection}`;
     } else {
-        return `You Lose! ${computerSelection} beats ${playerSelectionClean}`;
+        result.code = 'lost';
+        result.text = `You Lost! ${computerSelection} beats ${playerSelectionClean}`;
     }
+
+    return result;
 }
