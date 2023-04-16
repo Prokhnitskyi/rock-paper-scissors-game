@@ -46,3 +46,28 @@ function playRound(playerSelection, computerSelection) {
 
     return result;
 }
+
+function game(){
+    let roundsPlayed = 0;
+    const score = {
+        won: 0,
+        lost: 0,
+        tie: 0
+    }
+
+    for (roundsPlayed; roundsPlayed < 5; roundsPlayed++) {
+        const userPrompt = prompt(`Choose between: ${possibleValues.join(', ')}`);
+        const roundResults = playRound(userPrompt, getComputerChoice());
+        score[roundResults.code]++;
+        alert(roundResults.text);
+    }
+
+    if (score.won > score.lost) {
+        alert('You won the game!');
+    } else if (score.won < score.lost) {
+        alert('You lost the game!');
+    } else {
+        alert('Game was ended with a tie');
+    }
+    console.table(score);
+}
