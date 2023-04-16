@@ -6,20 +6,21 @@ function getComputerChoice() {
 }
 
 function playRound(playerSelection, computerSelection) {
-    const winLoseConditions = {
+    const isWin = {
         rock: {
-            paper: 'lose',
-            scissors: 'win'
+            paper: false,
+            scissors: true
         },
         paper: {
-            rock: 'win',
-            scissors: 'lose'
+            rock: true,
+            scissors: false
         },
         scissors: {
-            rock: 'lose',
-            paper: 'win'
+            rock: false,
+            paper: true
         }
-    }
+    };
+
     const playerSelectionClean =  playerSelection.toLowerCase().trim();
 
     if(!possibleValues.includes(playerSelectionClean)) {
@@ -27,8 +28,14 @@ function playRound(playerSelection, computerSelection) {
     }
 
     if (playerSelectionClean === computerSelection) {
-        return 'tie';
+        return 'Tie! You both picked ' + playerSelectionClean;
+    }
+
+    const won = isWin[playerSelectionClean][computerSelection];
+
+    if (won) {
+        return `You Won! ${playerSelectionClean} beats ${computerSelection}`;
     } else {
-        return winLoseConditions[playerSelectionClean][computerSelection];
+        return `You Lose! ${computerSelection} beats ${playerSelectionClean}`;
     }
 }
