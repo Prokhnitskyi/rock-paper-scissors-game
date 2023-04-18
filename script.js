@@ -56,10 +56,10 @@ function chooseOption(event) {
     resultsContainer.innerHTML = roundResult + resultsContainer.innerHTML;
 
     if (score.won === 5) {
-        matchResultContainer.innerHTML = 'You won the match!';
+        matchResultTitle.innerHTML = 'You won the match!';
         matchResultContainer.showModal();
     } else if (score.lost === 5) {
-        matchResultContainer.innerHTML = 'You lost the match!';
+        matchResultTitle.innerHTML = 'You lost the match!';
         matchResultContainer.showModal();
     }
     updateScoreBoard();
@@ -101,4 +101,13 @@ const scoreBoardLost = scoreBoard.querySelector('.game-score__lost');
 const scoreBoardWon = scoreBoard.querySelector('.game-score__won');
 const scoreBoardTie = scoreBoard.querySelector('.game-score__tie');
 const matchResultContainer = document.querySelector('.game-match-results');
+const matchResultTitle = document.querySelector('.game-match-results__title');
+const matchResultClose = document.querySelector('.game-match-results__close');
+const matchResultRestart = document.querySelector('.game-match-results__button');
 chooseButtons.forEach(btn => btn.addEventListener('click', chooseOption));
+matchResultClose.addEventListener('click', (event) => {
+   event.preventDefault();
+   matchResultContainer.close();
+});
+
+matchResultRestart.addEventListener('click', () => window.location.reload());

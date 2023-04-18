@@ -57,10 +57,10 @@ h2 {
     gap: 10px;
 }
 
-.game-controls__option {
+.button {
     border: 0;
     margin: 0;
-    flex: 1 0 100px;
+    width: 100px;
     color: var(--heading-color);
     font-size: 1.1rem;
     text-align: center;
@@ -68,6 +68,20 @@ h2 {
     border-radius: 4px;
     padding: 6px 14px;
     cursor: pointer;
+}
+
+.button:hover {
+    filter: brightness(120%);
+    box-shadow: 1px 2px 4px 0 rgb(62 123 250 / 85%);
+}
+
+.button:active {
+    filter: brightness(90%);
+    box-shadow: none;
+}
+
+.game-controls__option {
+    flex: 1 0 100px;
 }
 
 .game-results-container {
@@ -123,10 +137,52 @@ h2 {
     border-radius: 8px;
     padding: 20px;
     width: 320px;
-    min-height: 300px;
+    min-height: 120px;
     max-width: 90vw;
+    position: relative;
+}
+
+.game-match-results__close {
+    border: 0;
+    padding: 0;
+    background-color: transparent;
+    font-size: 1.5rem;
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    transform: scaleY(0.8);
+    cursor: pointer;
+    user-select: none;
+    color: var(--heading-color);
+}
+
+.game-match-results__close:hover {
+    animation: 0.5s ease-in-out shake alternate-reverse;
+}
+
+@keyframes shake {
+    0% {
+        transform: rotate(0deg);
+    }
+    50% {
+        transform: rotate(8deg);
+    }
+    50% {
+        transform: rotate(-8deg);
+    }
+}
+
+.game-match-results__wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    justify-content: stretch;
 }
 
 .game-match-results::backdrop {
     backdrop-filter: blur(4px);
+}
+
+.game-match-results__button {
+    align-self: center;
 }
