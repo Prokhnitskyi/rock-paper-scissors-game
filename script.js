@@ -16,6 +16,11 @@ const compareObject = {
         paper: 'won'
     }
 };
+let score = {
+    won: 0,
+    lost: 0,
+    tie: 0
+}
 
 function getComputerChoice() {
     const randomIndex = Math.floor(Math.random() * 3);
@@ -29,42 +34,71 @@ function playRound(playerSelection, computerSelection) {
         throw new Error(`You should select ${possibleValues.join(' or ')}`);
     }
 
-    const resultText = {
-        won: `You Won! ${playerSelectionClean} beats ${computerSelection}`,
-        lost: `You Lost! ${computerSelection} beats ${playerSelectionClean}`,
-        tie: 'Tie! You both picked ' + playerSelectionClean
-
-    }
-
     const code = compareObject[playerSelectionClean][computerSelection];
 
-    return {
-        code,
-        text: resultText[code]
-    }
-}
-
-function game(){
-    let roundsPlayed = 0;
-    const score = {
+    const roundScore = {
         won: 0,
         lost: 0,
         tie: 0
     }
 
-    for (roundsPlayed; roundsPlayed < 5; roundsPlayed++) {
-        const userPrompt = prompt(`Choose between: ${possibleValues.join(', ')}`);
-        const roundResults = playRound(userPrompt, getComputerChoice());
-        score[roundResults.code]++;
-        alert(roundResults.text);
-    }
+    score[code]++;
+    roundScore[code]++;
 
-    if (score.won > score.lost) {
-        alert('You won the game!');
-    } else if (score.won < score.lost) {
-        alert('You lost the game!');
-    } else {
-        alert('Game was ended with a tie');
-    }
-    console.table(score);
+    return buildRoundCard(roundScore);
 }
+
+function chooseOption(event) {
+    event.preventDefault();
+    if (score.won === 5 || score.lost === 5) return;
+
+    const roundResult =  playRound(event.target.dataset.option, getComputerChoice());
+    resultsContainer.innerHTML = roundResult + resultsContainer.innerHTML;
+
+    if (score.won === 5) {
+        matchResultContainer.innerHTML = 'You won the match!';
+        matchResultContainer.showModal();
+    } else if (score.lost === 5) {
+        matchResultContainer.innerHTML = 'You lost the match!';
+        matchResultContainer.showModal();
+    }
+    updateScoreBoard();
+}
+
+function updateScoreBoard() {
+    scoreBoardLost.textContent = score.lost;
+    scoreBoardWon.textContent = score.won;
+    scoreBoardTie.textContent = score.tie;
+}
+
+function resetGlobalScore(){
+    for (const scoreKey in score) {
+        score[scoreKey] = 0;
+    }
+}
+
+function buildRoundCard(roundScore) {
+    return `<article class="round-result">
+                <div class="round-result__element">
+                    <div>Lost</div>
+                    <div class="round-result__marker">${roundScore.lost ? '&#10004;' : ''}</div>
+                </div>
+                <div class="round-result__element">
+                    <div>Won</div>
+                    <div class="round-result__marker">${roundScore.won ? '&#10004;' : ''}</div>
+                </div>
+                <div class="round-result__element">
+                    <div>Tie</div>
+                    <div class="round-result__marker">${roundScore.tie ? '&#10004;' : ''}</div>
+                </div>
+            </article>`;
+}
+
+const resultsContainer = document.querySelector('.game-results-container');
+const chooseButtons = document.querySelectorAll('.game-controls__option');
+const scoreBoard = document.querySelector('.game-score');
+const scoreBoardLost = scoreBoard.querySelector('.game-score__lost');
+const scoreBoardWon = scoreBoard.querySelector('.game-score__won');
+const scoreBoardTie = scoreBoard.querySelector('.game-score__tie');
+const matchResultContainer = document.querySelector('.game-match-results');
+chooseButtons.forEach(btn => btn.addEventListener('click', chooseOption));
