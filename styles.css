@@ -113,6 +113,12 @@ a:hover {
     box-shadow: 0 0 1px rgba(0, 0, 0, 0.04), 0 2px 4px rgba(0, 0, 0, 0.32);
     padding: 5px;
     border-radius: 8px;
+    opacity: 0;
+    transition: opacity 0.6s;
+}
+
+.round-result--visible {
+    opacity: 1;
 }
 
 .round-result__element, .game-score__element {

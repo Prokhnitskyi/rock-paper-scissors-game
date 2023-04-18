@@ -71,6 +71,9 @@ function chooseOption(event) {
 
     const roundResult = playRound(event.target.dataset.option, getComputerChoice());
     resultsContainer.innerHTML = roundResult + resultsContainer.innerHTML;
+    setTimeout(()=>{
+        resultsContainer.firstElementChild.classList.add('round-result--visible');
+    },100);
     updateScoreBoard();
     showResults();
 }
