@@ -96,9 +96,9 @@ a:hover {
 .game-results-container {
     display: flex;
     flex-direction: column;
-    row-gap: 20px;
+    row-gap: 25px;
     background-color: var(--container-background-color);
-    padding: 20px 24px;
+    padding: 25px 24px 20px 24px;
     border-radius: 18px;
     min-width: 320px;
     flex-grow: 1;
@@ -107,6 +107,7 @@ a:hover {
 
 .round-result {
     display: flex;
+    position: relative;
     justify-content: space-between;
     align-items: flex-start;
     background-color: #2C2D42;
@@ -115,6 +116,13 @@ a:hover {
     border-radius: 8px;
     opacity: 0;
     transition: opacity 0.6s;
+}
+
+.round-result::after {
+    content: attr(data-you-choose) ' vs ' attr(data-computer-choose);
+    position: absolute;
+    top: -22px;
+    font-size: 0.75rem;
 }
 
 .round-result--visible {

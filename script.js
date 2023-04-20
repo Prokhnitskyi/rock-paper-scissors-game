@@ -62,7 +62,7 @@ function playRound(playerSelection, computerSelection) {
     score[code]++;
     roundScore[code]++;
 
-    return buildRoundCard(roundScore);
+    return buildRoundCard(roundScore, playerSelectionClean,computerSelection);
 }
 
 function chooseOption(event) {
@@ -94,8 +94,13 @@ function updateScoreBoard() {
     scoreBoardTie.textContent = score.tie;
 }
 
-function buildRoundCard(roundScore) {
-    return `<article class="round-result">
+function titleCase(string){
+    return string[0].toUpperCase() + string.slice(1).toLowerCase();
+}
+
+function buildRoundCard(roundScore, playerSelection, computerSelection) {
+    return `<article class="round-result" data-you-choose="${titleCase(playerSelection)}" 
+                                          data-computer-choose="${titleCase(computerSelection)}">
                 <div class="round-result__element">
                     <div>Lost</div>
                     <div class="round-result__marker">${roundScore.lost ? '&#10004;' : ''}</div>
