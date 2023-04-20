@@ -101,12 +101,12 @@ function buildRoundCard(roundScore) {
                     <div class="round-result__marker">${roundScore.lost ? '&#10004;' : ''}</div>
                 </div>
                 <div class="round-result__element">
-                    <div>Won</div>
-                    <div class="round-result__marker">${roundScore.won ? '&#10004;' : ''}</div>
-                </div>
-                <div class="round-result__element">
                     <div>Tie</div>
                     <div class="round-result__marker">${roundScore.tie ? '&#10004;' : ''}</div>
+                </div>
+                <div class="round-result__element">
+                    <div>Won</div>
+                    <div class="round-result__marker">${roundScore.won ? '&#10004;' : ''}</div>
                 </div>
             </article>`;
 }
